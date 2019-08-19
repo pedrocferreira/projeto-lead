@@ -18,13 +18,50 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>HUGS</title>
 </head>
-<nav class="navbar navbar-light bg-dark">
-  <a class="navbar-brand" href="#">
-   <h1 style="color: #FFFF">HUGS</h1>
-  </a>
-</nav>
-
+<?php include('header.php') ?>
+<?php require_once 'process.php'; ?>
 <body>
+
+
+
+<div class="container">
+<div class="row justify-content-center">
+  <table class="table">
+    <thead>
+
+      <?php 
+    $mysqli = new mysqli('localhost', 'root', '', 'lead') or die (mysqli_error($mysqli));
+    $result = $mysqli -> query("select * from lead") or die($mysqli ->error); ?>
+      <tr>
+        <th>Nome</th>
+        <th>Telefon</th>
+        <th>Email </th>
+        <th>Plataforma</th>
+        <th>Data</th>
+
+      </tr>
+    </thead>
+
+    <?php
+     while ($row = $result -> fetch_assoc()): ?>
+    <tr>
+      <td><?php echo $row['nome'] ?></td>
+      <td><?php echo $row['telefone'] ?></td>
+      <td><?php echo $row['email'] ?></td>
+      <td><?php echo $row['plataforma'] ?></td>
+      <td><?php echo $row['data'] ?></td>
+      <td>
+        <a href="index.php?edit= <?php echo $row['id']; ?>" class="btn- btn-info">Edit</a>
+        <a href="process.php?delete=<?php echo $row['id']; ?>" class="btn- btn-info">Delete</a>
+      </td>
+
+
+    </tr>
+  <?php endwhile; ?>
+    
+  </table>
+
+  <br>
 <div class="container">
 
 
